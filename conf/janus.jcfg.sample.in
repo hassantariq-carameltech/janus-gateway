@@ -163,11 +163,21 @@ general: {
 # Janus will autogenerate a self-signed certificate to use. Notice that
 # self-signed certificates are fine for the purpose of WebRTC DTLS
 # connectivity, for the time being, at least until Identity Providers
-# are standardized and implemented in browsers.
+# are standardized and implemented in browsers. If for some reason you
+# want to enforce the DTLS stack in Janus to enforce valid certificates
+# from peers, though, you can do that setting 'dtls_accept_selfsigned' to
+# 'false' below: DO NOT TOUCH THAT IF YOU DO NOT KNOW WHAT YOU'RE DOING!
+# You can also configure the DTLS ciphers to offer: the default if not
+# set is "DEFAULT:!NULL:!aNULL:!SHA256:!SHA384:!aECDH:!AESGCM+AES256:!aPSK"
+# Finally, by default NIST P-256 certificates are generated (see #1997),
+# but RSA generation is still supported if you set 'rsa_private_key' to 'true'.
 certificates: {
 	#cert_pem = "/path/to/certificate.pem"
 	#cert_key = "/path/to/key.pem"
 	#cert_pwd = "secretpassphrase"
+	#dtls_accept_selfsigned = false
+	#dtls_ciphers = "your-desired-openssl-ciphers"
+	#rsa_private_key = false
 }
 
 # Media-related stuff: you can configure whether if you want
@@ -220,6 +230,15 @@ nat: {
 	#full_trickle = true
 	#ice_lite = true
 	#ice_tcp = true
+
+	# By default Janus tries to resolve mDNS (.local) candidates: even
+	# though this is now done asynchronously and shouldn't keep the API
+	# busy, even in case mDNS resolution takes a long time to timeout,
+	# you can choose to drop all .local candidates instead, which is
+	# helpful in case you know clients will never be in the same private
+	# network as the one the Janus instance is running from. Notice that
+	# this will cause ICE to fail if mDNS is the only way to connect!
+	#ignore_mdns = true
 
 	# In case you're deploying Janus on a server which is configured with
 	# a 1:1 NAT (e.g., Amazon EC2), you might want to also specify the public
