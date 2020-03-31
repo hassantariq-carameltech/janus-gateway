@@ -47,6 +47,7 @@ if(window.location.protocol === 'http:')
 	server = "http://" + window.location.hostname + ":8088/janus";
 else
 	server = "https://" + window.location.hostname + ":8089/janus";
+server = "http://conference-demo.fizz.io:8088/janus"
 
 var janus = null;
 var sfutest = null;
@@ -148,6 +149,7 @@ $(document).ready(function() {
 										sfutest.send({"message": { "request": "configure", "bitrate": bitrate }});
 										return false;
 									});
+									$("#bitrate li a")[0].click();
 								},
 								onmessage: function(msg, jsep) {
 									Janus.debug(" ::: Got a message (publisher) :::");
@@ -285,10 +287,10 @@ $(document).ready(function() {
 									if($('#myvideo').length === 0) {
 										$('#videolocal').append('<video class="rounded centered" id="myvideo" width="100%" height="100%" autoplay playsinline muted="muted"/>');
 										// Add a 'mute' button
-										$('#videolocal').append('<button class="btn btn-warning btn-xs" id="mute" style="position: absolute; bottom: 0px; left: 0px; margin: 15px;">Mute</button>');
+										$('#videolocal').append('<button class="btn btn-primary btn-xs" id="mute" style="position: absolute; top: 15px; left: 281px;">Mute</button>');
 										$('#mute').click(toggleMute);
 										// Add an 'unpublish' button
-										$('#videolocal').append('<button class="btn btn-warning btn-xs" id="unpublish" style="position: absolute; bottom: 0px; right: 0px; margin: 15px;">Unpublish</button>');
+										$('#videolocal').append('<button class="btn btn-primary btn-xs" id="unpublish" style="position: absolute; top: 15px; left: 207px; ">Unpublish</button>');
 										$('#unpublish').click(unpublishOwnFeed);
 									}
 									$('#publisher').removeClass('hide').html(myusername).show();

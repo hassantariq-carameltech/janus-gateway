@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Janus WebRTC Server: Video Room Demo</title>
+<title>Fizz Conference Demo</title>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/6.4.0/adapter.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
@@ -24,6 +24,7 @@
 	});
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" type="text/css"/>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="css/demo.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.css"/>
@@ -34,15 +35,18 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Fizz Conference Demo
-					<button class="btn btn-default" autocomplete="off" id="start">Start</button>
-				</h1>
+				<img src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNDUzLjIgMzY2LjIiPjxzdHlsZT4uc3Qwe2ZpbGw6I2ZmZn08L3N0eWxlPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02Ni40IDM2Ni4yek0zMTQuNCAwSDEzOS4yQzYyLjYgMCAuNSA2MS43LjUgMTM3LjhjLTcgODQuMyA2Ni45IDIyNS43IDY1LjkgMjI4LjQuMS0xLjUgNy41LTkwLjggMzMtOTUuNSAxMi4xIDQgMjMuNCA0LjggMzkuOSA0LjhoMTc1LjJjNzYuNiAwIDEzOC43LTYxLjcgMTM4LjctMTM3LjhTMzkxLjEgMCAzMTQuNCAwek0xNDUuOCAxMDQuOEgxMDF2MjUuM2g0MS44djIwLjdIMTAxdjQ0LjdINzUuM1Y4NGg3MC41djIwLjh6bTQ1IDkwLjdoLTI1LjZWODRoMjUuNnYxMTEuNXptMTkzLjcgMEgyMDZ2LTEzLjdsNTUuMi03Ni4xdi0uNUgyMTFWODRoODMuOXYxNC40bC01NC4xIDc1LjR2LjVoNTkuM2w0OS44LTY4LjZ2LS41aC01MC4zVjg0aDgzLjl2MTQuNGwtNTQuMSA3NS40di41aDU1LjF2MjEuMnoiLz48L3N2Zz4=" alt="Portfolio" height="47px" class="Image__ImageWrapper-xwdy9p-0 ijBcZY">
+				<h1>Fizz Video Conferencing</h1>
 			</div>
 			<div class="container" id="details">
 				<div class="row">
 					<div class="col-md-12">
-						<h3>Let's get started</h3>
-						<p>Press <code>Start</code> to launch the demo.</p>
+						<center>
+							<h2>Let's get started</h2>
+							<p class="card-text">The purpose of this demo is to show the working of fizz multivideo conferencing.</p>
+							<button class="btn btn-default btn-lg" autocomplete="off" id="start">Launch</button>
+						</center>
+						<!-- <button class="btn btn-default" autocomplete="off" id="start">Launch</button> -->
 					</div>
 				</div>
 			</div>
@@ -50,35 +54,32 @@
 				<div class="row">
 					<span class="label label-info" id="you"></span>
 					<div class="col-md-12" id="controls">
-						<div class="input-group margin-bottom-md hide" id="registernow">
-							<span class="input-group-addon">@</span>
-							<input autocomplete="off" class="form-control" autocomplete="off" type="text" placeholder="Choose a display name" id="username" onkeypress="return checkEnter(this, event);"></input>
-							<span class="input-group-btn">
-								<button class="btn btn-success" autocomplete="off" id="register">Join the room</button>
-							</span>
+						<div class="margin-bottom-md hide" id="registernow">
+							<center>
+								<input style="width: 50%; margin-bottom: 10px;" autocomplete="off" class="form-control" autocomplete="off" type="text" placeholder="Choose a display name" id="username" onkeypress="return checkEnter(this, event);"></input>
+								<button class="btn btn-default btn-lg" autocomplete="off" id="register">Join the room</button>
+							</center>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container hide" id="videos">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Local Video <span class="label label-primary hide" id="publisher"></span>
-									<div class="btn-group btn-group-xs pull-right hide">
+								<h3 class="panel-title"><span class="label label-primary hide local-title" id="publisher"></span>
+									<div class="btn-group btn-group-xs hide cap-limit-btn">
 										<div class="btn-group btn-group-xs">
 											<button id="bitrateset" autocomplete="off" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 												Bandwidth<span class="caret"></span>
 											</button>
 											<ul id="bitrate" class="dropdown-menu" role="menu">
-												<li><a href="#" id="0">No limit</a></li>
-												<li><a href="#" id="128">Cap to 128kbit</a></li>
-												<li><a href="#" id="256">Cap to 256kbit</a></li>
-												<li><a href="#" id="512">Cap to 512kbit</a></li>
-												<li><a href="#" id="1024">Cap to 1mbit</a></li>
-												<li><a href="#" id="1500">Cap to 1.5mbit</a></li>
-												<li><a href="#" id="2000">Cap to 2mbit</a></li>
+												<li><a href="#" class="active" id="0">No limit</a></li>
+												<li><a href="#" id="128">Limit bandwidth to 128kbit</a></li>
+												<li><a href="#" id="512">Limit bandwidth to 512kbit</a></li>
+												<li><a href="#" id="1024">Limit bandwidth to 1mbit</a></li>
+												<li><a href="#" id="2000">Limit bandwidth to 2mbit</a></li>
 											</ul>
 										</div>
 									</div>
@@ -87,10 +88,12 @@
 							<div class="panel-body" id="videolocal"></div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Remote Video #1 <span class="label label-info hide" id="remote1"></span></h3>
+								<h3 class="panel-title"><span class="hide" id="remote1"></span></h3>
 							</div>
 							<div class="panel-body relative" id="videoremote1"></div>
 						</div>
@@ -98,17 +101,15 @@
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Remote Video #2 <span class="label label-info hide" id="remote2"></span></h3>
+								<h3 class="panel-title"><span class="hide" id="remote2"></span></h3>
 							</div>
 							<div class="panel-body relative" id="videoremote2"></div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Remote Video #3 <span class="label label-info hide" id="remote3"></span></h3>
+								<h3 class="panel-title"><span class="hide" id="remote3"></span></h3>
 							</div>
 							<div class="panel-body relative" id="videoremote3"></div>
 						</div>
@@ -116,7 +117,7 @@
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Remote Video #4 <span class="label label-info hide" id="remote4"></span></h3>
+								<h3 class="panel-title"><span class="hide" id="remote4"></span></h3>
 							</div>
 							<div class="panel-body relative" id="videoremote4"></div>
 						</div>
@@ -124,12 +125,38 @@
 					<div class="col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Remote Video #5 <span class="label label-info hide" id="remote5"></span></h3>
+								<h3 class="panel-title"><span class="hide" id="remote5"></span></h3>
 							</div>
 							<div class="panel-body relative" id="videoremote5"></div>
 						</div>
 					</div>
 				</div>
+				<!-- <div class="row">
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><span class="hide" id="remote3"></span></h3>
+							</div>
+							<div class="panel-body relative" id="videoremote3"></div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><span class="hide" id="remote4"></span></h3>
+							</div>
+							<div class="panel-body relative" id="videoremote4"></div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><span class="hide" id="remote5"></span></h3>
+							</div>
+							<div class="panel-body relative" id="videoremote5"></div>
+						</div>
+					</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
