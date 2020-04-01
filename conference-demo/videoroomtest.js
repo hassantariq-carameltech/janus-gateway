@@ -42,18 +42,32 @@
 // in the presented order. The first working server will be used for
 // the whole session.
 //
+
+var getParams = function (url) {
+	var params = {};
+	var parser = document.createElement('a');
+	parser.href = url;
+	var query = parser.search.substring(1);
+	var vars = query.split('&');
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split('=');
+		params[pair[0]] = decodeURIComponent(pair[1]);
+	}
+	return params;
+};
+
 var server = null;
 if(window.location.protocol === 'http:')
 	server = "http://" + window.location.hostname + ":8088/janus";
 else
 	server = "https://" + window.location.hostname + ":8089/janus";
-// server = "http://conference-demo.fizz.io:8088/janus"
+// server = "http://janus-gateway.fizz.io:8088/janus"
 
 var janus = null;
 var sfutest = null;
 var opaqueId = "videoroomtest-"+Janus.randomString(12);
 
-var myroom = 1234;	// Demo room
+var myroom = null;	// Demo room
 var myusername = null;
 var myid = null;
 var mystream = null;
@@ -67,6 +81,16 @@ var doSimulcast = (getQueryStringValue("simulcast") === "yes" || getQueryStringV
 var doSimulcast2 = (getQueryStringValue("simulcast2") === "yes" || getQueryStringValue("simulcast2") === "true");
 
 $(document).ready(function() {
+
+	myroom = getParams(window.location.href).roomId;
+
+	if (isNaN(myroom)) {
+		// return alert("Room does not exists with this id");
+		myroom = 1234;
+	} else {
+		myroom = parseInt(myroom);
+	}
+
 	// Initialize the library (all console debuggers enabled)
 	Janus.init({debug: "all", callback: function() {
 		// Use a button to start the demo

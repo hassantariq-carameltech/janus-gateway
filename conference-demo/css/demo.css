@@ -166,6 +166,10 @@ pre {
 	word-wrap: break-word;
 }
 
+video {
+	max-height: 273px;
+}
+
 .januscon {
 	font-weight: bold;
 	animation: pulsating 1s infinite;
