@@ -1,0 +1,45 @@
+.chat-button img {
+  z-index: 1;
+  width: 90px;
+  right: 20px;
+  height: 90px;
+  bottom: 100px;
+  position: fixed;
+}
+
+#main {
+  transition: margin-left 0.5s;
+}
+
+.sidebar {
+  top: 0;
+  width: 0;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+  position: fixed;
+  transition: 0.5s;
+  overflow-x: hidden;
+}
+
+.sidebar .closebtn {
+  top: 3px;
+  right: 15px;
+  font-size: 36px;
+  position: absolute;
+
+  display: block;
+  font-size: 25px;
+  color: #000000;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.sidebar .closebtn:hover {
+  color: #2185d0;
+}
+
+.sidebar iframe {
+  width: inherit;
+  height: inherit;
+}
