@@ -464,9 +464,7 @@ function registerUsername() {
     // userName and roomId are valid
     const iframe = document.getElementById('fizzWebChat');
     const fizzWebChatURL = `https://conference-chat.fizz.io/?roomId=${myroom}&userId=${myusername}`;
-
-    iframe.src = fizzWebChatURL;
-    iframe.contentWindow.location.reload();
+    iframe.contentWindow.location.replace(fizzWebChatURL);
   }
 }
 
