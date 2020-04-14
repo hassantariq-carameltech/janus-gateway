@@ -11,6 +11,6 @@ function showChatWindow() {
 
 function hideChatWindow() {
   document.getElementById('mySidebar').style.width = '0';
-  document.getElementById('chatButton').style.width = '80px';
+  document.getElementById('chatButton').style.width = '35px';
   document.getElementById('main').style.marginLeft = mainMargin;
 }

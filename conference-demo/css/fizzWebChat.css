@@ -1,9 +1,9 @@
 .chat-button img {
   z-index: 1;
-  width: 90px;
-  right: 20px;
-  height: 90px;
-  bottom: 100px;
+  width: 35px;
+  right: 55px;
+  height: 35px;
+  bottom: 45px;
   position: fixed;
 }
 
